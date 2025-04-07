@@ -13,8 +13,7 @@ public:
 
     const void Update(float mouseWheelMove, Vector2 mouseDelta);
     const void Reset();
-    inline const Camera& Get()
-    {
+    inline const Camera& Get(){
         return m_camera;
     }
 

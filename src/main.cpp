@@ -1,8 +1,8 @@
 #include <cmath>
 #include "raylib.h"
-#include "raymath.h"
 
 #include "gamecamera.h"
+#include "player.h"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -14,23 +14,18 @@ int main(void)
     const int screenWidth = 1440;
     const int screenHeight = 900;
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera free");
-
+    InitWindow(screenWidth, screenHeight, "Break-out");
 
     float angle = 0.0f; // Initialize angle
     float radius = 20.0f; // Distance from the origin
 
-    Vector3 playerPos = { 0.5f, 0.5f, 0.5f };
-    Vector3 playerRot = { 0.0f, 0.0f, 0.0f };
+    GameCamera gameCamera;
 
-	GameCamera gameCamera;
-
-    auto playerMesh = GenMeshCube(1.0f, 1.0f, 1.0f);
-    auto playerModel = LoadModelFromMesh(playerMesh);
+    Player player;
 
     DisableCursor();                    // Limit cursor to relative movement inside the window
-
     SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
+ 
     //--------------------------------------------------------------------------------------
 
     // Main game loop
@@ -38,42 +33,12 @@ int main(void)
     {
         float deltaTime = GetFrameTime();
 
-		gameCamera.Update(GetMouseWheelMove(), GetMouseDelta());
-		
-        if (IsKeyPressed('Z'))
-        {
-            playerPos = (Vector3){ 0.5f, 0.5f, 0.5f };
-			playerRot = (Vector3){ 0.0f, 0.0f, 0.0f };
-			// gameCamera.Reset();
-        }
-        if (IsKeyDown('W'))
-        {
-            playerRot.z += 0.1745f;
-        }
-        if (IsKeyDown('S'))
-        {
-            playerRot.z -= 0.1745f;
-        }
-        if (IsKeyDown('A'))
-        {
-            playerRot.x += 0.1745f;
-        }
-        if (IsKeyDown('D'))
-        {
-            playerRot.x -= 0.1745f;
-        }
-		if (IsKeyDown('Q'))
-        {
-            playerRot.y += 0.1745f;
-        }
-        if (IsKeyDown('E'))
-        {
-            playerRot.y -= 0.1745f;
-        }
+        gameCamera.Update(GetMouseWheelMove(), GetMouseDelta());
 
-        playerModel.transform = MatrixRotateXYZ(playerRot);
+        player.HandleKeyInput();
+        player.Move(deltaTime);
+
         //----------------------------------------------------------------------------------
-
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -82,8 +47,8 @@ int main(void)
 
             BeginMode3D(gameCamera.Get());
 
-                DrawModel(playerModel, playerPos, 1.0f, RED);
-				DrawModelWires(playerModel, playerPos, 1.0f, BLACK);
+                DrawModel(player.GetModel(), player.GetPos(), 1.0f, RED);
+                DrawModelWires(player.GetModel(), player.GetPos(), 1.0f, BLACK);
                 DrawGrid(10, 1.0f);
 
             EndMode3D();
@@ -95,7 +60,10 @@ int main(void)
             DrawText("Camera status:", 610, 15, 10, BLACK);
             DrawText(TextFormat("- Position: (%06.3f, %06.3f, %06.3f)", gameCamera.Get().position.x, gameCamera.Get().position.y, gameCamera.Get().position.z), 610, 30, 10, BLACK);
             DrawText(TextFormat("- Field of view: (%06.3f)", gameCamera.Get().fovy), 610, 45, 10, BLACK);
-
+            
+            DrawText("Player status:", 610, 60, 10, BLACK);
+            DrawText(TextFormat("- Position: (%06.3f, %06.3f, %06.3f)", player.GetPos().x, player.GetPos().y, player.GetPos().z), 610, 75, 10, BLACK);
+            DrawText(TextFormat("- Rotation: (%06.3f, %06.3f, %06.3f)", player.GetRot().x, player.GetRot().y, player.GetRot().z), 610, 90, 10, BLACK);
         EndDrawing();
         //----------------------------------------------------------------------------------
     }
