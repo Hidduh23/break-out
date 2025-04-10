@@ -24,7 +24,7 @@ public:
 private:
 
     Matrix GetPivotRotationMatrix(Vector3 pivot, Vector3 rotationAngles);
-    void StartMove(Vector3 direction);
+    void StartMove();
     bool HasReachedTarget();
 
     Vector3   m_pos = { 0.5f, 0.5f, 0.5f };
@@ -38,5 +38,5 @@ private:
     Model     m_playerModel = LoadModelFromMesh(m_playerMesh);
     float     m_rotSpeed = PI / 2.0f; // 90 degrees per second
     // Check if the absolute rotation in any direction (x, y, or z) has reached π/2
-    const float halfPi = PI / 2.0f;
+    const float m_rotStop = PI / 2.0f;
 };

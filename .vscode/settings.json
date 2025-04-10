@@ -11,6 +11,8 @@
 	"files.associations": {
 		"cmath": "cpp",
 		"string_view": "cpp",
-		"random": "cpp"
+		"random": "cpp",
+		"*.m": "cpp",
+		"optional": "cpp"
 	}
 }
