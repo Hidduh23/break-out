@@ -27,7 +27,7 @@ private:
     void StartMove();
     bool HasReachedTarget();
 
-    Vector3   m_pos = { 0.5f, 0.5f, 0.5f };
+    Vector3   m_pos = { 0.0f, 0.5f, 0.0f };
     Vector3   m_rot = { 0.0f, 0.0f, 0.0f };
 
     bool      m_isMoving = false;
@@ -38,7 +38,7 @@ private:
 
     Mesh      m_playerMesh = GenMeshCube(1.0f, 1.0f, 1.0f);
     Model     m_playerModel = LoadModelFromMesh(m_playerMesh);
-    float     m_rotSpeed = PI / 2.0f; // 90 degrees per second
+    float     m_rotSpeed = PI;
     // Check if the absolute rotation in any direction (x, y, or z) has reached π/2
     const float m_rotStop = PI / 2.0f;
 };

@@ -4,7 +4,7 @@ constexpr Vector3 defaultPos = { 10.0f, 10.0f, 10.0f };
 constexpr Vector3 defaultTarget = { 0.0f, 0.0f, 0.0f };
 constexpr Vector3 defaultUp = { 0.0f, 1.0f, 0.0f };
 constexpr float defaultFovy = 45.0f;
-constexpr float defaultRadius= 20.0f;
+constexpr float defaultRadius= -20.0f;
 
 class GameCamera
 {

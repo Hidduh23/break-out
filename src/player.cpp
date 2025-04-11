@@ -29,9 +29,7 @@ void Player::Move(const float& deltaTime)
     if (m_isMoving)
     {
         // Update rotation
-        m_rot.x += m_direction.x * m_rotSpeed * deltaTime;
-        m_rot.y += m_direction.y * m_rotSpeed * deltaTime;
-        m_rot.z += m_direction.z * m_rotSpeed * deltaTime;
+        m_rot += m_direction * m_rotSpeed * deltaTime;
 
         // Check if the rotation has reached its target
         if (HasReachedTarget())
@@ -52,30 +50,30 @@ void Player::HandleKeyInput()
     {
         if (IsKeyPressed('W'))
         {
-            m_pivotPoint = {0.5f, 0.5f, 0.0f};
-            m_direction = {0.0f, 0.0f, 1.0f};
-            m_displacement = {-1.0f, 0.0f, 0.0f};
-            StartMove();
-        }
-        if (IsKeyPressed('S'))
-        {
             m_pivotPoint = {-0.5f, 0.5f, 0.0f};
             m_direction = {0.0f, 0.0f, -1.0f};
             m_displacement = {1.0f, 0.0f, 0.0f};
             StartMove();
         }
-        if (IsKeyPressed('A'))
+        if (IsKeyPressed('S'))
         {
-            m_pivotPoint = {0.0f, 0.5f, -0.5f};
-            m_direction = {1.0f, 0.0f, 0.0f};
-            m_displacement = {0.0f, 0.0f, 1.0f};
+            m_pivotPoint = {0.5f, 0.5f, 0.0f};
+            m_direction = {0.0f, 0.0f, 1.0f};
+            m_displacement = {-1.0f, 0.0f, 0.0f};
             StartMove();
         }
-        if (IsKeyPressed('D'))
+        if (IsKeyPressed('A'))
         {
             m_pivotPoint = {0.0f, 0.5f, 0.5f};
             m_direction = {-1.0f, 0.0f, 0.0f};
             m_displacement = {0.0f, 0.0f, -1.0f};
+            StartMove();
+        }
+        if (IsKeyPressed('D'))
+        {
+            m_pivotPoint = {0.0f, 0.5f, -0.5f};
+            m_direction = {1.0f, 0.0f, 0.0f};
+            m_displacement = {0.0f, 0.0f, 1.0f};
             StartMove();
         }
         if (IsKeyPressed('Q'))
