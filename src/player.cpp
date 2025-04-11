@@ -33,15 +33,16 @@ void Player::Move(const float& deltaTime)
         m_rot.y += m_direction.y * m_rotSpeed * deltaTime;
         m_rot.z += m_direction.z * m_rotSpeed * deltaTime;
 
-        // Update the model's transformation matrix
-        m_playerModel.transform = GetPivotRotationMatrix(m_pivotPoint, m_rot);
-
         // Check if the rotation has reached its target
         if (HasReachedTarget())
         {
             m_isMoving = false;
+            m_pos += m_displacement;
             m_rot = {0.0f, 0.0f, 0.0f};
         }
+
+        // Update the model's transformation matrix
+        m_playerModel.transform = GetPivotRotationMatrix(m_pivotPoint, m_rot);
     }
 }
 
@@ -53,36 +54,42 @@ void Player::HandleKeyInput()
         {
             m_pivotPoint = {0.5f, 0.5f, 0.0f};
             m_direction = {0.0f, 0.0f, 1.0f};
+            m_displacement = {-1.0f, 0.0f, 0.0f};
             StartMove();
         }
         if (IsKeyPressed('S'))
         {
             m_pivotPoint = {-0.5f, 0.5f, 0.0f};
             m_direction = {0.0f, 0.0f, -1.0f};
+            m_displacement = {1.0f, 0.0f, 0.0f};
             StartMove();
         }
         if (IsKeyPressed('A'))
         {
             m_pivotPoint = {0.0f, 0.5f, -0.5f};
             m_direction = {1.0f, 0.0f, 0.0f};
+            m_displacement = {0.0f, 0.0f, 1.0f};
             StartMove();
         }
         if (IsKeyPressed('D'))
         {
             m_pivotPoint = {0.0f, 0.5f, 0.5f};
             m_direction = {-1.0f, 0.0f, 0.0f};
+            m_displacement = {0.0f, 0.0f, -1.0f};
             StartMove();
         }
         if (IsKeyPressed('Q'))
         {
             m_pivotPoint = {0.0f, 0.0f, 0.0f};
             m_direction = {0.0f, 1.0f, 0.0f};
+            m_displacement = {0.0f, 0.0f, 0.0f};
             StartMove();
         }
         if (IsKeyPressed('E'))
         {
             m_pivotPoint = {0.0f, 0.0f, 0.0f};
             m_direction = {0.0f, -1.0f, 0.0f};
+            m_displacement = {0.0f, 0.0f, 0.0f};
             StartMove();
         }
     }

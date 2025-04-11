@@ -31,8 +31,10 @@ private:
     Vector3   m_rot = { 0.0f, 0.0f, 0.0f };
 
     bool      m_isMoving = false;
+
     Vector3   m_direction = { 0.0f, 0.0f, 0.0f };
     Vector3   m_pivotPoint = { 0.0f, 0.0f, 0.0f };
+    Vector3   m_displacement = { 0.0f, 0.0f, 0.0f };
 
     Mesh      m_playerMesh = GenMeshCube(1.0f, 1.0f, 1.0f);
     Model     m_playerModel = LoadModelFromMesh(m_playerMesh);
